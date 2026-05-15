@@ -21,7 +21,7 @@ In this setup, I called `CanvasControl.Invalidate()` inside a `DispatcherQueueTi
 * **Windows 11:** 
   * Reaches **55 to 60 FPS**, but suffers from heavy frame drops and micro-stutters.
 * **Windows 10:** 
-  * *(Yet to be fully tested).*
+  * Reaches only **~30 FPS**. Half of the `CanvasControl.Invalidate()` calls are swallowed.
 
 ### 3. `CanvasAnimatedControl`
 In this setup, I used `CanvasAnimatedControl`, setting `IsFixedTimeStep="False"` to allow the control to sync natively with the monitor.
