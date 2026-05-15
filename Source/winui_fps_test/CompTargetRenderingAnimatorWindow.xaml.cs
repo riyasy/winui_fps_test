@@ -11,7 +11,7 @@ using Microsoft.UI.Xaml.Media;
 
 namespace winui_fps_test;
 
-public sealed partial class MainWindow : Window
+public sealed partial class CompTargetRenderingAnimatorWindow : Window
 {
     private bool _isPlaying = true;
     private double _angle = 0.0, _timeAcc = 0.0;
@@ -27,16 +27,19 @@ public sealed partial class MainWindow : Window
     private readonly Color _colBlue = Color.FromArgb(255, 0, 180, 255);
     private readonly Color _colGray = Color.FromArgb(255, 100, 100, 100);
 
-    public MainWindow()
+    public CompTargetRenderingAnimatorWindow()
     {
         InitializeComponent();
         AnimationCanvas.CreateResources += OnAnimationCanvasOnCreateResources;
         AnimationCanvas.Draw += OnAnimationCanvasDraw;
+
+        // RENDERING APPROACH: Uses CompositionTarget.Rendering event to continuously invalidate the canvas.
         CompositionTarget.Rendering += OnCompositionTargetRendering;
     }
 
     private void OnAnimationCanvasOnCreateResources(CanvasControl sender, CanvasCreateResourcesEventArgs args)
     {
+        // Clean up and recreate gradient brush (e.g., device lost)
         _ballBrush?.Dispose(); // Clean up if recreating (e.g., device lost)
         _ballBrush = new CanvasRadialGradientBrush(sender, [
             new() { Color = Colors.White, Position = 0.0f },
@@ -46,7 +49,15 @@ public sealed partial class MainWindow : Window
         { RadiusX = 25.2f, RadiusY = 25.2f };
     }
 
+    // COMPOSITION TARGET RENDERING: Invalidates canvas on each composition frame
     private void OnCompositionTargetRendering(object? s, object e)
+    {
+        System.Diagnostics.Debug.WriteLine("OnCompositionTargetRendering");
+        AnimationCanvas.Invalidate();
+    }
+
+    // FPS CALCULATOR: Tracks frame count and calculates FPS every 0.25 seconds
+    private void CalculateFPS()
     {
         var now = _stopwatch.Elapsed;
         if (_lastRenderTime != TimeSpan.Zero && now > _lastRenderTime)
@@ -64,12 +75,17 @@ public sealed partial class MainWindow : Window
             if (_isPlaying)
                 _angle = (_angle + 1.8 * dt) % (Math.PI * 2);
         }
-        _lastRenderTime = now;
-        AnimationCanvas.Invalidate();
+        _lastRenderTime = now;        
     }
 
+    // DRAW LOOP: Handles all rendering and FPS calculation
     private void OnAnimationCanvasDraw(CanvasControl sender, CanvasDrawEventArgs args)
     {
+        System.Diagnostics.Debug.WriteLine("OnAnimationCanvasDraw");
+
+        // 0. Calculate FPS
+        CalculateFPS();
+
         var ds = args.DrawingSession;
         var center = new Vector2((float)sender.ActualWidth / 2f, (float)sender.ActualHeight / 2f);
         var orbitR = MathF.Min(center.X * 2, center.Y * 2) * 0.36f;
@@ -122,6 +138,7 @@ public sealed partial class MainWindow : Window
 
         if (!_isPlaying)
         {
+            // Reset FPS counters when paused
             _timeAcc = _frameCount = 0; // Reset new FPS counters
             _lastRenderTime = TimeSpan.Zero;
         }

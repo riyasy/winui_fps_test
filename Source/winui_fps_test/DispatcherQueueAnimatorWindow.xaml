@@ -1,0 +1,44 @@
+<Window
+    x:Class="winui_fps_test.DispatcherQueueAnimatorWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    Title="WinUI FPS Test - Canvas - Dispatcher Queue Timer Based">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Top Left: Button  -->
+        <Button
+            x:Name="PlayPauseButton"
+            Margin="10"
+            Padding="16,8"
+            Click="PlayPauseButton_Click"
+            Content="PAUSE"
+            FontSize="16" />
+
+        <!--  Top Right: FPS Display  -->
+        <TextBlock
+            x:Name="FpsText"
+            Grid.Column="1"
+            Margin="10"
+            HorizontalAlignment="Right"
+            FontSize="28"
+            FontWeight="Bold"
+            Text="0" />
+
+        <!--  Bottom Row: Canvas spanning both columns  -->
+        <canvas:CanvasControl
+            x:Name="AnimationCanvas"
+            Grid.Row="1"
+            Grid.ColumnSpan="2"
+            ClearColor="#FF0D0D0D" />
+    </Grid>
+</Window>

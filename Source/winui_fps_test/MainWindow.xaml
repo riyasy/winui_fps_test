@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Window
+    x:Class="winui_fps_test.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:winui_fps_test"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="FPS Test"
+    mc:Ignorable="d">
+
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+
+    <Grid Padding="20">
+        <StackPanel Spacing="20">
+            <TextBlock
+                FontSize="18"
+                FontWeight="Bold"
+                Text="Select Animation Method:" />
+
+            <StackPanel Spacing="8">
+                <TextBlock FontSize="14" Text="Animated using Win2d CanvasAnimatedControl" />
+                <Button Click="OnAnimatedCanvasTestClicked" Content="Open AnimatedCanvasControl Test" />
+            </StackPanel>
+            <StackPanel Spacing="8">
+                <TextBlock FontSize="14">
+                    <Run Text="Animated using CompositionTarget.Rendering event" />
+                    <LineBreak />
+                    <Run Text="(uses Win2d CanvasControl)" />
+                </TextBlock>
+                <Button Click="OnCompTargetRenderingClicked" Content="Open CompositionTarget Rendering Test" />
+            </StackPanel>
+            <StackPanel Spacing="8">
+                <TextBlock FontSize="14">
+                    <Run Text="Animated using DispatcherQueueTimer at 15ms to match against 60hz refresh rate" />
+                    <LineBreak />
+                    <Run Text="(uses Win2d CanvasControl)" />
+                </TextBlock>
+                <Button Click="OnDispatcherQueueTimerClicked" Content="Open DispatcherQueueTimer Test" />
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

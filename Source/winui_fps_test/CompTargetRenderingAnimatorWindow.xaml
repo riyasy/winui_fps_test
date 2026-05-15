@@ -1,9 +1,9 @@
 <Window
-    x:Class="winui_fps_test.MainWindow"
+    x:Class="winui_fps_test.CompTargetRenderingAnimatorWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
-    Title="WinUI FPS Test">
+    Title="WinUI FPS Test - Canvas - Composition Target Rendering Event Based">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -21,7 +21,7 @@
             Margin="10"
             Padding="16,8"
             Click="PlayPauseButton_Click"
-            Content="⏸  PAUSE"
+            Content="PAUSE"
             FontSize="16" />
 
         <!--  Top Right: FPS Display  -->
