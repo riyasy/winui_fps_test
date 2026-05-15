@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "winui_fps_test (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "winui_fps_test (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
