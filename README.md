@@ -28,7 +28,7 @@ In this setup, I used `CanvasAnimatedControl`, setting `IsFixedTimeStep="False"`
 
 * **Windows 10 & Windows 11:**
   * `Update` and `Draw` events run on a background thread and fire in perfect synchronization with the monitor's actual refresh rate.
-  * Successfully maintains **60 FPS** on a 60Hz monitor, and scales to **70 FPS / 75 FPS** when the monitor refresh rate is increased with zero frame drops.
+  * Successfully maintains **60 FPS** on a 60Hz monitor, and scales up and down to **75 or 50 FPS** when the monitor refresh rate is changed with zero frame drops.
 
 ---
 
